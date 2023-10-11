@@ -100,9 +100,9 @@ tbody tr:nth-child(odd) {
   background-color: #eeeee0;
 }
 
-tbody tr:hover {
+tbody td:hover {
   background: linear-gradient(45deg, #FF0018, #FFA52C, #FFFF41, #008018, #0000F9, #86007D);
-  background-size: 60% 100%;
+  background-size: 100% 100%;
   animation: gradient 4s linear infinite;
   color: #eeeee0;
 }

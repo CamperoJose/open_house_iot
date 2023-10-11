@@ -4,6 +4,7 @@
 #include <SPIFFS.h>
 // Sustituye los datos de tu red WIFI ( el nombre y la contraseña )
 #include "config.h"
+#include "fix_matrices.h"
 
 // Puesta de LED GPIO
 const int ledPin = 2;

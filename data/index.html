@@ -40,33 +40,35 @@
 
 <main>
   <section class="estado">
-      <p>Estado del GPIO : <strong>%ESTADO%</strong></p>
-      <div class="botones">
-          <a href="/on" class="button">ON</a>
-          <a href="/off" class="button button2">OFF</a>
-      </div>
+    <h2>Micrófono</h2>
+    <p>Estado: <strong>%MIC_ESTADO%</strong></p>
+    <div class="botones">
+      <a href="/micon" class="button">ON</a>
+      <a href="/micoff" class="button button2">OFF</a>
+    </div>
+  </section>
+  <section class="opciones">
+    <table>
+      <tr>
+          <td><img src="assets/happyface.png" width="50" alt="happyface"></td>
+          <td><img src="assets/sadface.png" width="50" alt="sadface"></td>
+          <td><img src="assets/neutralface.png" width="50" alt="neutralface"></td>
+      </tr>
+      <tr>
+          <td><img src="assets/angryface.png" width="50" alt="angryface"></td>
+          <td><img src="assets/surprisedface.png" width="50" alt="surprisedface"></td>
+          <td><img src="assets/laughingface.png" width="50" alt="laughingface"></td>
+      </tr>
+      <tr>
+          <td><img src="assets/heartface.png" width="50" alt="heartface"></td>
+          <td><img src="assets/coolface.png" width="50" alt="coolface"></td>
+          <td><img src="assets/nerdface.png" width="50" alt="nerdface"></td>
+      </tr>
+  
+    </table>
+    
   </section>
   
-  <section class="sensores">
-      <div class="sensor">
-          <span class="sensor-label">ADC</span>
-          <hr>
-          <span id="adc">%ADC%</span>
-          <sup class="units">&deg;C</sup>
-      </div>
-      <div class="sensor">
-          <span class="sensor-label">PULSADOR</span>
-          <hr>
-          <span id="pulsador">%PULSADOR%</span>
-          <sup class="units">&#37;</sup>
-      </div>
-      <div class="sensor">
-          <span class="sensor-label">RSSI</span>
-          <hr>
-          <span id="RSSI">%RSSI%</span>
-          <sup class="units">db</sup>
-      </div>
-  </section>
 </main>
 
 

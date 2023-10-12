@@ -100,13 +100,54 @@ void showSadFace(){
 }
 
 void showNeutralFace(){
-  /*NeoPixel.clear();
+  Serial.println("Cara Sad");
+  NeoPixel.clear();
   NeoPixel.show();
-  reverseOddRows(SmileyFace, 8);
+  
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    NeoPixel.setPixelColor(pixel, NeoPixel.Color(SmileyFace[pixel%8][pixel/8], SmileyFace[pixel%8][pixel/8], 0));  // 
-    NeoPixel.show();                                           // actualizando el estado de los leds
-  }*/
+    Serial.print(neutral[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(neutral[pixel/8][pixel%8],neutral[pixel/8][pixel%8],neutral[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara Sad");  
+}
+
+void showLaughFace(){
+  Serial.println("Cara Riendose");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(laughR[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(laughR[pixel/8][pixel%8],laughGB[pixel/8][pixel%8],laughGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara Riendose");  
+}
+
+void showAngryFace(){
+  Serial.println("Cara Enojada");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(madR[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(madR[pixel/8][pixel%8],madG[pixel/8][pixel%8],0)); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara Enojada");  
 }
 
 void setup()
@@ -219,12 +260,25 @@ server.on("/sadFace", HTTP_GET, [](AsyncWebServerRequest *request){
             showSadFace();
             request->send(SPIFFS, "/index.html", String(), false, processor);
             });
-/*
-server.on("/smileyFace", HTTP_GET, [](AsyncWebServerRequest *request){
+
+
+server.on("/neutralFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
             showNeutralFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
             });
-*/
+
+server.on("/laughFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showLaughFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/angryFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showAngryFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
 
 
 

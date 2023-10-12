@@ -150,6 +150,40 @@ void showAngryFace(){
   Serial.println("Fin Cara Enojada");  
 }
 
+void showSurprisedFace(){
+  Serial.println("Cara sorprendida");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(coolRGB[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara kool");  
+}
+
+void showHeartFace(){
+  Serial.println("Cara de corazón");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(coolRGB[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara kool");  
+}
+
 void showCoolFace(){
   Serial.println("Cara coool");
   NeoPixel.clear();
@@ -355,6 +389,18 @@ server.on("/sadFace", HTTP_GET, [](AsyncWebServerRequest *request){
 
 
 server.on("/neutralFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showNeutralFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/surprisedFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showNeutralFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/heartFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
             showNeutralFace();
             request->send(SPIFFS, "/index.html", String(), false, processor);

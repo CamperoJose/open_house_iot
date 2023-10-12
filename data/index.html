@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Servidor WEB ESP32</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,156 +8,115 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="UTF-8">
 </head>
+
 <body>
 
   <nav>
     <div class="logo">
-        <img src="assets/logo_ucb.png" alt="logo_ucba">
+      <img src="assets/logo_ucb.png" alt="logo_ucba">
     </div>
     <div class="imagenes-derecha">
       <p id="fecha-hora" class="hora"></p>
       <img src="" alt="wifi" id="wifi">
     </div>
-</nav>
-<br>
-<header>
-  <div class="mask-container">
-    <div class="logo-container">
-      <img class="img_mask" src="assets/logo_empresa.jpeg" alt="">
+  </nav>
+  <br>
+  <header>
+    <div class="mask-container">
+      <div class="logo-container">
+        <img class="img_mask" src="assets/logo_empresa.jpeg" alt="">
+      </div>
     </div>
-  </div>
-  <div class="text-title">
-    <h1>Servidor WEB ESP32</h1>
-    <h3>MÁSCARA LED CON EXPRESIONES FACIALES</h3>
-  </div>
-</header>
+    <div class="text-title">
+      <h1>Servidor WEB ESP32</h1>
+      <h3>MÁSCARA LED CON EXPRESIONES FACIALES</h3>
+    </div>
+  </header>
 
-<main>
-  <section class="estado">
-    <h2>Micrófono</h2>
-    <p>Estado: <strong>%MIC_ESTADO%</strong></p>
-    <div class="botones">
-      <a href="/micon" class="button">ON</a>
-      <a href="/micoff" class="button button2">OFF</a>
-    </div>
-  </section>
-  <section class="opciones">
-    <table>
-      <tr>
-          <td><img src="../data/assets/faces/happyface.png" width="50" alt="happyface"></td>
-          <td><img src="../data/assets/faces/sadface.png" width="50" alt="sadface"></td>
-          <td><img src="../data/assets/faces/neutralface.png" width="50" alt="neutralface"></td>
-      </tr>
-      <tr>
-          <td><img src="../data/assets/faces/angryface.png" width="50" alt="angryface"></td>
-          <td><img src="../data/assets/faces/surprisedface.png" width="50" alt="surprisedface"></td>
-          <td><img src="../data/assets/faces/laughingface.png" width="50" alt="laughingface"></td>
-      </tr>
-      <tr>
-          <td><img src="../data/assets/faces/heartface.png" width="50" alt="heartface"></td>
-          <td><img src="../data/assets/faces/coolface.png" width="50" alt="coolface"></td>
-          <td><img src="../data/assets/faces/nerdface.png" width="50" alt="nerdface"></td>
-      </tr>
-  
-    </table>
-    
-  </section>
-  
-</main>
+  <main>
+    <section class="estado">
+      <h2>Micrófono</h2>
+      <p>Estado: <strong>%MIC_ESTADO%</strong></p>
+      <div class="botones">
+        <a href="/micon" class="button">ON</a>
+        <a href="/micoff" class="button button2">OFF</a>
+      </div>
+    </section>
+    <section class="opciones">
+      <table>
+        <tr>
+          <td><img src="../data/assets/faces/happyface.png" width="50" alt="happyface" onclick="happy('happyface')"></td>
+          <td><img src="../data/assets/faces/sadface.png" width="50" alt="sadface" onclick="sad('sadface')" ></td>
+          <td><img src="../data/assets/faces/neutralface.png" width="50" alt="neutralface" onclick="neutral('neutral')"></td>
+        </tr>
+        <tr>
+          <td><img src="../data/assets/faces/angryface.png" width="50" alt="angryface" onclick="angry('angryface')"></td>
+          <td><img src="../data/assets/faces/surprisedface.png" width="50" alt="surprisedface" onclick="surprised('surprisedface')"></td>
+          <td><img src="../data/assets/faces/laughingface.png" width="50" alt="laughingface" onclick="laughing('laughingface')"></td>
+        </tr>
+        <tr>
+          <td><img src="../data/assets/faces/coolface.png" width="50" alt="coolface" onclick="cool('coolface')"></td>
+          <td><img src="../data/assets/faces/nerdface.png" width="50" alt="nerdface" onclick="nerd('nerdface')"></td>
+          <td><img src="../data/assets/faces/heartface.png" width="50" alt="heartface" onclick="heart('heartface')"></td>
+        </tr>
+
+      </table>
+
+    </section>
+
+  </main>
 
 
   <table>
     <tr>
-        <th>IP Local</th>
-        <th>Host Name</th>
-        <th>Estado Wi-Fi</th>
-        <th>SSID</th>
-        <th>PSK</th>
-        <th>BSSID</th>
-        <th>RSSI Value</th>
+      <th>IP Local</th>
+      <th>Host Name</th>
+      <th>Estado Wi-Fi</th>
+      <th>SSID</th>
+      <th>PSK</th>
+      <th>BSSID</th>
+      <th>RSSI Value</th>
     </tr>
     <tr>
-        <td>%IP_LOCAL%</td>
-        <td>%HOST_NAME%</td>
-        <td>%STATUS%</td>
-        <td>%SSID%</td>
-        <td>%PSK%</td>
-        <td>%BSSID%</td>
-        <td>%RSSI_VALUE%</td>
+      <td>%IP_LOCAL%</td>
+      <td>%HOST_NAME%</td>
+      <td>%STATUS%</td>
+      <td>%SSID%</td>
+      <td>%PSK%</td>
+      <td>%BSSID%</td>
+      <td>%RSSI_VALUE%</td>
     </tr>
-</table>
+  </table>
 
-<footer>
-  <div class="footer-left">
-    <h3>NOMBRES:</h3>
-    <li>José Antonio Campero Morales</li>
-    <li>Miguel Alejandro Carrasco Céspedes</li>
-    <li>María Fernanda Gutiérrez Sandoval</li>
-    <li>Guillermo Javier Auza Banegas</li>
-  </div>
-  <div class="footer-center">
-    <ul>
-      <li><strong>UNIVERSIDAD CATÓLICA BOLIVIANA</strong></li><br>
-      <li>Internet de las Cosas</li>
-    </ul>
-  </div>
-  <div class="footer-right">
-    <h3>REPOSITORIO</h3>
-    <ul class="social-icons">
-      <li><a href="https://github.com/Camperomask/open_house_iot.git" target="_blank"><img src="assets/3.png" width="50" alt="GitHub"></a></li>
-    </ul>
-  </div>
-</footer>
+  <footer>
+    <div class="footer-left">
+      <h3>NOMBRES:</h3>
+      <li>José Antonio Campero Morales</li>
+      <li>Miguel Alejandro Carrasco Céspedes</li>
+      <li>María Fernanda Gutiérrez Sandoval</li>
+      <li>Guillermo Javier Auza Banegas</li>
+    </div>
+    <div class="footer-center">
+      <ul>
+        <li><strong>UNIVERSIDAD CATÓLICA BOLIVIANA</strong></li><br>
+        <li>Internet de las Cosas</li>
+      </ul>
+    </div>
+    <div class="footer-right">
+      <h3>REPOSITORIO</h3>
+      <ul class="social-icons">
+        <li><a href="https://github.com/Camperomask/open_house_iot.git" target="_blank"><img src="assets/3.png"
+              width="50" alt="GitHub"></a></li>
+      </ul>
+    </div>
+  </footer>
 
 
 
 </body>
-<script>
-  function obtenerFechaHora() {
-    const ahora = new Date();
-    const opciones = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
-    return ahora.toLocaleDateString('es-ES', opciones);
-  }
-  function actualizarFechaHora() {
-    const fechaHoraElemento = document.getElementById('fecha-hora');
-    if (fechaHoraElemento) {
-      fechaHoraElemento.textContent = obtenerFechaHora();
-    }
-  }
-  setInterval(actualizarFechaHora, 1000);
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
 
-  setInterval(function ( ) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("pulsador").innerHTML = this.responseText;
-      }
-    };
-    xhttp.open("GET", "/pulsador", true);
-    xhttp.send();
-  }, 1000 ) ;
-
-  setInterval(function ( ) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("RSSI").innerHTML = this.responseText;
-      }
-
-      if (document.getElementById("RSSI").innerHTML > -25) {
-        document.getElementById("wifi").src = "assets/red1.png";
-      } else if (document.getElementById("RSSI").innerHTML > -50){
-        document.getElementById("wifi").src = "assets/red2.png";
-      }else if (document.getElementById("RSSI").innerHTML > -75){
-        document.getElementById("wifi").src = "assets/red3.png";
-      }else {
-        document.getElementById("wifi").src = "assets/red4.png";
-      }
-
-
-    };
-    xhttp.open("GET", "/RSSI", true);
-    xhttp.send();
-  }, 1000 ) ;
-</script>
 </html>

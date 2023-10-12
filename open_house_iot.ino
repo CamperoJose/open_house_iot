@@ -5,20 +5,15 @@
 // Sustituye los datos de tu red WIFI ( el nombre y la contraseña )
 #include "config.h"
 #include "fix_matrices.h"
+#include "face_generator.h"
 
-// Puesta de LED GPIO
-const int ledPin = 2;
-int PinLedR = 22;
-int PinLedG = 21;
-int PinLedB = 19;  
-// Para guardar el estado del LED                
-int estadoR = LOW;                          //Definimos la variable que va a recoger el estado del LED
-int estadoG = LOW; 
-int estadoB = LOW; 
-String ledStateG;
-int estado = LOW;                         //Definimos la variable que va a recoger el estado del LED
-int pulsador = 23;                        // Estado del pulsador
-int contador = 0;
+#include <Adafruit_NeoPixel.h>
+
+#define PIN_NEO_PIXEL 23
+#define NUM_PIXELS 40
+
+//Declarar el objeto NeoPixel
+Adafruit_NeoPixel NeoPixel(NUM_PIXELS, PIN_NEO_PIXEL, NEO_GRB + NEO_KHZ800);
 
 // Creamos el servidor AsyncWebServer en el puerto 80
 AsyncWebServer server(80);
@@ -29,12 +24,7 @@ String getTemperature() {
     Serial.println(adc);
     return String(adc);
 }
-// leemos la humedad y la mostramos
-String getHumidity() {
-    float boton = digitalRead(pulsador);
-    Serial.println(boton);
-    return String(boton);
-}
+
 // leemos la presion y la mostramos
 String getPressure() {
     float rssi = WiFi.RSSI();
@@ -44,25 +34,9 @@ String getPressure() {
 
 String processor(const String& var)
 {
-    Serial.print(var + " : ");
-    if (var == "ESTADO") {
-        if (digitalRead(PinLedG)) {
-            ledStateG = "ON";
-        }
-        else {
-            ledStateG = "OFF";
-        }
-        Serial.println(ledStateG);
-        return ledStateG;
-    }
-    else if (var == "ADC") {
+    
+    if (var == "ADC") {
         return getTemperature();
-    }
-    else if (var == "PULSADOR") {
-        return getHumidity();
-    }
-    else if (var == "RSSI") {
-        return getPressure();
     }
     // Agrega más condiciones para las nuevas variables aquí
     else if (var == "IP_LOCAL") {
@@ -91,17 +65,56 @@ String processor(const String& var)
 }
 
 
+void showSmileyFace(){
+  Serial.println("Cara feliz");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(happy[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(happy[pixel/8][pixel%8], happy[pixel/8][pixel%8], 0)); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara feliz");  
+}
 
+void showSadFace(){
+  Serial.println("Cara Sad");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(sad[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(0, 0, sad[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara Sad");  
+}
+
+void showNeutralFace(){
+  /*NeoPixel.clear();
+  NeoPixel.show();
+  reverseOddRows(SmileyFace, 8);
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(SmileyFace[pixel%8][pixel/8], SmileyFace[pixel%8][pixel/8], 0));  // 
+    NeoPixel.show();                                           // actualizando el estado de los leds
+  }*/
+}
 
 void setup()
 {
   // Establecemos la velocidad de conexión por el puerto serie
   Serial.begin(115200);
-  // Ponemos a  ledPin  como salida
-  pinMode(ledPin, OUTPUT);
-  pinMode(PinLedG, OUTPUT);                //Inicializamos el GPIO2 como salida
-  digitalWrite(PinLedG, LOW);              //Dejamos inicialmente el GPIO2 apagado
-  pinMode(pulsador,INPUT);
+  NeoPixel.begin();//
+  
   // Iniciamos  SPIFFS
   if(!SPIFFS.begin())
      { Serial.println("ha ocurrido un error al montar SPIFFS");
@@ -130,25 +143,7 @@ void setup()
             request->send(SPIFFS, "/style.css", "text/css");
             });
             
-// lectura de botones  
-  // Ruta para poner el GPIO alto
-  server.on("/on", HTTP_GET, [](AsyncWebServerRequest *request){
-            digitalWrite(PinLedG, HIGH);
-            request->send(SPIFFS, "/index.html", String(), false, processor);
-            });
-  
-  // Ruta para poner el GPIO bajo
-  server.on("/off", HTTP_GET, [](AsyncWebServerRequest *request){
-            digitalWrite(PinLedG, LOW);
-            request->send(SPIFFS, "/index.html", String(), false, processor);
-            });
-// Refresco de datos enla pagina mediante script  
-  server.on("/adc", HTTP_GET, [](AsyncWebServerRequest *request){
-            request->send_P(200, "text/plain", getTemperature().c_str());
-            });
-  server.on("/pulsador", HTTP_GET, [](AsyncWebServerRequest *request){
-            request->send_P(200, "text/plain", getHumidity().c_str());
-            });
+
   server.on("/RSSI", HTTP_GET, [](AsyncWebServerRequest *request){
             request->send_P(200, "text/plain", getPressure().c_str());
             });
@@ -213,11 +208,23 @@ server.on("/assets/mypic.png", HTTP_GET, [](AsyncWebServerRequest *request){
 });
 
 
-server.on("/face", HTTP_GET, [](AsyncWebServerRequest *request){
+server.on("/smileyFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            showSmileyFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
             });
 
-
+server.on("/sadFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showSadFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+/*
+server.on("/smileyFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showNeutralFace();
+            });
+*/
 
 
 

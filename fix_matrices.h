@@ -1,4 +1,4 @@
-#define N 10
+#define N 8
 
 void reverseOddRows(int arr[][N], int n) {
     for (int i = 0; i < n; i++) {
@@ -15,4 +15,3 @@ void reverseOddRows(int arr[][N], int n) {
         }
     }
 }
-

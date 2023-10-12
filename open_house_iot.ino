@@ -150,6 +150,57 @@ void showAngryFace(){
   Serial.println("Fin Cara Enojada");  
 }
 
+void showCoolFace(){
+  Serial.println("Cara coool");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(coolRGB[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara kool");  
+}
+
+void showNerdFace(){
+  Serial.println("Cara nerd");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(nerdR[pixel/8][pixel%8],nerdG[pixel/8][pixel%8],nerdB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara nerd");  
+}
+
+void showUcbFace(){
+  Serial.println("Cara nerd");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(ucbR[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(ucbR[pixel/8][pixel%8],ucbG[pixel/8][pixel%8],ucbB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin Cara nerd");  
+}
+
+
 void setup()
 {
   // Establecemos la velocidad de conexión por el puerto serie
@@ -249,6 +300,47 @@ server.on("/assets/mypic.png", HTTP_GET, [](AsyncWebServerRequest *request){
 });
 
 
+
+server.on("/assets/faces/angryface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/angryface.png", "image/png");
+});
+
+server.on("/assets/faces/coolface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/coolface.png", "image/png");
+});
+
+server.on("/assets/faces/happyface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/happyface.png", "image/png");
+});
+
+server.on("/assets/faces/heartface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/heartface.png", "image/png");
+});
+
+server.on("/assets/faces/laughingface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/laughingface.png", "image/png");
+});
+
+server.on("/assets/faces/nerdface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/nerdface.png", "image/png");
+});
+
+server.on("/assets/faces/neutralface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/neutralface.png", "image/png");
+});
+
+server.on("/assets/faces/sadface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/sadface.png", "image/png");
+});
+
+server.on("/assets/faces/surprisedface.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/assets/faces/surprisedface.png", "image/png");
+});
+
+
+
+
+
 server.on("/smileyFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
             showSmileyFace();
@@ -280,6 +372,24 @@ server.on("/angryFace", HTTP_GET, [](AsyncWebServerRequest *request){
             request->send(SPIFFS, "/index.html", String(), false, processor);
             });
 
+
+server.on("/nerdFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showNerdFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/coolFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showCoolFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/ucbFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showUcbFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
 
 
 // Inicio del servidor

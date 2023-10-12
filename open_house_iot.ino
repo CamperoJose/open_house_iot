@@ -213,6 +213,12 @@ server.on("/assets/mypic.png", HTTP_GET, [](AsyncWebServerRequest *request){
 });
 
 
+server.on("/face", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            });
+
+
+
 
 
 // Inicio del servidor

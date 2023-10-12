@@ -14,28 +14,21 @@
         <img src="assets/logo_ucb.png" alt="logo_ucba">
     </div>
     <div class="imagenes-derecha">
-        <img src="" alt="bateria" id="bateria">
-        <img src="" alt="wifi" id="wifi">
+      <p id="fecha-hora" class="hora"></p>
+      <img src="" alt="wifi" id="wifi">
     </div>
 </nav>
-
 <br>
-<br>
-
-
-<div class="jose-container">
-  <div class="logo-container">
-    <img class="img_jose" src="assets/logo_empresa.jpeg" alt="">
-
-  </div>
-  <p id="fecha-hora" class="hora"></p>
-</div>
-
-<br>
-
-
 <header>
-  <h1>Servidor WEB ESP32</h1>
+  <div class="mask-container">
+    <div class="logo-container">
+      <img class="img_mask" src="assets/logo_empresa.jpeg" alt="">
+    </div>
+  </div>
+  <div class="text-title">
+    <h1>Servidor WEB ESP32</h1>
+    <h3>MÁSCARA LED CON EXPRESIONES FACIALES</h3>
+  </div>
 </header>
 
 <main>
@@ -50,19 +43,19 @@
   <section class="opciones">
     <table>
       <tr>
-          <td><img src="assets/happyface.png" width="50" alt="happyface"></td>
-          <td><img src="assets/sadface.png" width="50" alt="sadface"></td>
-          <td><img src="assets/neutralface.png" width="50" alt="neutralface"></td>
+          <td><img src="../data/assets/faces/happyface.png" width="50" alt="happyface"></td>
+          <td><img src="../data/assets/faces/sadface.png" width="50" alt="sadface"></td>
+          <td><img src="../data/assets/faces/neutralface.png" width="50" alt="neutralface"></td>
       </tr>
       <tr>
-          <td><img src="assets/angryface.png" width="50" alt="angryface"></td>
-          <td><img src="assets/surprisedface.png" width="50" alt="surprisedface"></td>
-          <td><img src="assets/laughingface.png" width="50" alt="laughingface"></td>
+          <td><img src="../data/assets/faces/angryface.png" width="50" alt="angryface"></td>
+          <td><img src="../data/assets/faces/surprisedface.png" width="50" alt="surprisedface"></td>
+          <td><img src="../data/assets/faces/laughingface.png" width="50" alt="laughingface"></td>
       </tr>
       <tr>
-          <td><img src="assets/heartface.png" width="50" alt="heartface"></td>
-          <td><img src="assets/coolface.png" width="50" alt="coolface"></td>
-          <td><img src="assets/nerdface.png" width="50" alt="nerdface"></td>
+          <td><img src="../data/assets/faces/heartface.png" width="50" alt="heartface"></td>
+          <td><img src="../data/assets/faces/coolface.png" width="50" alt="coolface"></td>
+          <td><img src="../data/assets/faces/nerdface.png" width="50" alt="nerdface"></td>
       </tr>
   
     </table>
@@ -93,27 +86,24 @@
     </tr>
 </table>
 
-
-
 <footer>
   <div class="footer-left">
-    <img src="assets/mypic.png" width="100" alt="Tu Foto">
+    <h3>NOMBRES:</h3>
+    <li>José Antonio Campero Morales</li>
+    <li>Miguel Alejandro Carrasco Céspedes</li>
+    <li>María Fernanda Gutiérrez Sandoval</li>
+    <li>Guillermo Javier Auza Banegas</li>
   </div>
   <div class="footer-center">
-    <h3>Información de Contacto</h3>
     <ul>
-      <li><strong>Nombre:</strong> José Antonio Campero Morales</li>
-      <li><strong>Materia:</strong> Internet de las Cosas</li>
-      <li><strong>Universidad:</strong> Universidad Católica Boliviana San Pablo</li>
-      <li><strong>Celular:</strong>+591 69990770</li>
+      <li><strong>UNIVERSIDAD CATÓLICA BOLIVIANA</strong></li><br>
+      <li>Internet de las Cosas</li>
     </ul>
   </div>
   <div class="footer-right">
-    <h3>Redes Sociales</h3>
+    <h3>REPOSITORIO</h3>
     <ul class="social-icons">
-      <li><a href="https://www.instagram.com/" target="_blank"><img src="assets/1.png" width="50" alt="Instagram"></a></li>
-      <li><a href="https://web.whatsapp.com/" target="_blank"><img src="assets/2.png" width="50" alt="WhatsApp"></a></li>
-      <li><a href="https://github.com/" target="_blank"><img src="assets/3.png" width="50" alt="GitHub"></a></li>
+      <li><a href="https://github.com/Camperomask/open_house_iot.git" target="_blank"><img src="assets/3.png" width="50" alt="GitHub"></a></li>
     </ul>
   </div>
 </footer>
@@ -134,28 +124,6 @@
     }
   }
   setInterval(actualizarFechaHora, 1000);
-
-  setInterval(function ( ) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("adc").innerHTML = this.responseText;
-      }
-
-      if (document.getElementById("adc").innerHTML > 3000) {
-        document.getElementById("bateria").src = "assets/bateria1.png";
-      } else if (document.getElementById("adc").innerHTML > 2000 && document.getElementById("adc").innerHTML >= 102) {
-        document.getElementById("bateria").src = "assets/bateria2.png";
-      } else if (document.getElementById("adc").innerHTML > 1000 && document.getElementById("adc").innerHTML >= 102) {
-        document.getElementById("bateria").src = "assets/bateria3.png";
-      } else  {
-        document.getElementById("bateria").src = "assets/bateria4.png";
-      } 
-
-    };
-    xhttp.open("GET", "/adc", true);
-    xhttp.send();
-  }, 1000 ) ;
 
   setInterval(function ( ) {
     var xhttp = new XMLHttpRequest();

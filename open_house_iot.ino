@@ -157,10 +157,10 @@ void showSurprisedFace(){
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(coolRGB[pixel/8][pixel%8]);  
+    Serial.print(surpriseR[pixel/8][pixel%8]);  
     Serial.print("  ");
     if (pixel%8 == 7) Serial.println(".");
-    NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(surpriseR[pixel/8][pixel%8],surpriseR[pixel/8][pixel%8],surpriseR[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
@@ -174,15 +174,15 @@ void showHeartFace(){
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(coolRGB[pixel/8][pixel%8]);  
+    Serial.print(heartR[pixel/8][pixel%8]);  
     Serial.print("  ");
     if (pixel%8 == 7) Serial.println(".");
-    NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(heartR[pixel/8][pixel%8],0,0)); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
   //NeoPixel.show();
-  Serial.println("Fin Cara kool");  
+  Serial.println("Fin Cara corazon");  
 }
 
 void showCoolFace(){
@@ -223,16 +223,16 @@ void showUcbFace(){
   Serial.println("Cara UCB");
   NeoPixel.clear();
   NeoPixel.show();
-
-  reverseOddRows(ucbR);
-  reverseOddRows(ucbG);
-  reverseOddRows(ucbB);
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(ucbR[pixel/8][pixel%8]);  
+    Serial.print(ucbR[pixel/8][pixel%8]);   
     Serial.print("  ");
     if (pixel%8 == 7) Serial.println(".");
-    NeoPixel.setPixelColor(pixel, NeoPixel.Color(ucbR[pixel/8][pixel%8],ucbG[pixel/8][pixel%8],ucbB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    if((pixel/8)%2==0) {
+      NeoPixel.setPixelColor(pixel, NeoPixel.Color(ucbR[pixel/8][pixel%8],ucbG[pixel/8][pixel%8],ucbB[pixel/8][pixel%8])); // actualizando el estado de los leds
+    } else {
+      NeoPixel.setPixelColor(pixel, NeoPixel.Color(ucbR[pixel/8][7-pixel%8],ucbG[pixel/8][7-pixel%8],ucbB[pixel/8][7-pixel%8])); // actualizando el estado de los leds
+    }
     NeoPixel.show(); 
     delay(10);
   }
@@ -402,13 +402,13 @@ server.on("/neutralFace", HTTP_GET, [](AsyncWebServerRequest *request){
 
 server.on("/surprisedFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
-            showNeutralFace();
+            showSurprisedFace();
             request->send(SPIFFS, "/index.html", String(), false, processor);
             });
 
 server.on("/heartFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
-            showNeutralFace();
+            showHeartFace();
             request->send(SPIFFS, "/index.html", String(), false, processor);
             });
 

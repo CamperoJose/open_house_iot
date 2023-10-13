@@ -238,7 +238,44 @@ void showUcbFace(){
   }
   //NeoPixel.show();
   Serial.println("Fin Cara UCB");  
-}
+  
+  }
+
+  void showOpenFace(){
+  Serial.println("Boca abierta");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(open[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(open[pixel/8][pixel%8],open[pixel/8][pixel%8],open[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin boca abierta");  
+  
+  }
+
+  void showCloseFace(){
+  Serial.println("Boca cerrada");
+  NeoPixel.clear();
+  NeoPixel.show();
+  
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    Serial.print(close[pixel/8][pixel%8]);  
+    Serial.print("  ");
+    if (pixel%8 == 7) Serial.println(".");
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(close[pixel/8][pixel%8],close[pixel/8][pixel%8],close[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  }
+  //NeoPixel.show();
+  Serial.println("Fin boca cerrada");  
+  
+  }
 
 
 void setup()
@@ -440,6 +477,18 @@ server.on("/coolFace", HTTP_GET, [](AsyncWebServerRequest *request){
 server.on("/ucbFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
             showUcbFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/openFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showOpenFace();
+            request->send(SPIFFS, "/index.html", String(), false, processor);
+            });
+
+server.on("/closeFace", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            showCloseFace();
             request->send(SPIFFS, "/index.html", String(), false, processor);
             });
 

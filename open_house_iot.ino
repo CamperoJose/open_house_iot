@@ -218,7 +218,7 @@ void showNerdFace(){
 }
 
 void showUcbFace(){
-  Serial.println("Cara nerd");
+  Serial.println("Cara UCB");
   NeoPixel.clear();
   NeoPixel.show();
   
@@ -231,7 +231,7 @@ void showUcbFace(){
     delay(10);
   }
   //NeoPixel.show();
-  Serial.println("Fin Cara nerd");  
+  Serial.println("Fin Cara UCB");  
 }
 
 

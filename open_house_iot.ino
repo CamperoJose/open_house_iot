@@ -9,6 +9,7 @@
 
 #include <Adafruit_NeoPixel.h>
 
+
 #define PIN_NEO_PIXEL 23
 #define NUM_PIXELS 40
 
@@ -205,6 +206,7 @@ void showNerdFace(){
   Serial.println("Cara nerd");
   NeoPixel.clear();
   NeoPixel.show();
+
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
     Serial.print("  ");
@@ -221,6 +223,10 @@ void showUcbFace(){
   Serial.println("Cara UCB");
   NeoPixel.clear();
   NeoPixel.show();
+
+  reverseOddRows(ucbR);
+  reverseOddRows(ucbG);
+  reverseOddRows(ucbB);
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
     Serial.print(ucbR[pixel/8][pixel%8]);  

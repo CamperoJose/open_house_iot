@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Servidor WEB ESP32</title>
+  <title>Mascara Emoji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,7 +17,6 @@
     </div>
     <div class="imagenes-derecha">
       <p id="fecha-hora" class="hora"></p>
-      <img src="" alt="wifi" id="wifi">
     </div>
   </nav>
   <br>
@@ -33,60 +32,93 @@
     </div>
   </header>
 
+  <div class="slider">
+    <div class="item">
+        <img src="assets/faces/happyface.png" width="200" alt="happyface">
+        <br>
+        <div class="botonesInt">
+          <a href="/smileyFace" class="button">Mostrar</a>
+        </div>
+
+
+        
+    </div>
+    <div class="item">
+        <img src="assets/faces/sadface.png" width="200" alt="sadface">
+        <br>
+        <div class="botonesInt">
+        <a href="/sadFace"><button class="button">Mostrar</button></a>
+        </div>
+
+
+    </div>
+    <div class="item">
+        <img src="assets/faces/neutralface.png" width="200" alt="neutralface">
+        <br>
+        <div class="botonesInt">
+        <a href="/neutralFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/angryface.png" width="200" alt="angryface">
+        <br>
+        <div class="botonesInt">
+        <a href="/angryFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/surprisedface.png" width="200" alt="surprisedface">
+        <br>
+        <div class="botonesInt">
+        <a href="/surprisedFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/laughingface.png" width="200" alt="laughingface">
+        <br>
+        <div class="botonesInt">
+        <a href="/laughFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/heartface.png" width="200" alt="heartface">
+        <br>
+        <div class="botonesInt">
+        <a href="/heartFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/coolface.png" width="200" alt="coolface">
+        <br>
+        <div class="botonesInt">
+        <a href="/coolFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <div class="item">
+        <img src="assets/faces/nerdface.png" width="200" alt="nerdface">
+        <br>
+        <div class="botonesInt">
+        <a href="/nerdFace"><button class="button">Mostrar</button></a>
+        </div>
+    </div>
+    <button id="next">></button>
+    <button id="prev"><</button>
+</div>
+
+
+
 <main>
   <section class="estado">
     <h2>Micrófono</h2>
-    <p>Estado: <strong>%MIC_ESTADO%</strong></p>
     <div class="botones">
-      <a href="/micon" class="button">ON</a>
-      <a href="/micoff" class="button button2">OFF</a>
+      <a href="/voice" class="button">ON</a>
+      <a href="/images" class="button button2">OFF</a>
     </div>
   </section>
-  <section class="opciones">
-    <table>
-      <tr>
-          <td><a href="/smileyFace"><img src="../data/assets/faces/happyface.png" width="50" alt="happyface"></a></td>
-          <td><a href="/sadFace"><img src="../data/assets/faces/sadface.png" width="50" alt="sadface"></a></td>
-          <td><a href="/neutralFace"><img src="../data/assets/faces/neutralface.png" width="50" alt="neutralface"></a></td>
-      </tr>
-      <tr>
-          <td><a href="/angryFace"><img src="../data/assets/faces/angryface.png" width="50" alt="angryface"></a></td>
-          <td><a href="/surprisedFace"><img src="../data/assets/faces/surprisedface.png" width="50" alt="surprisedface"></a></td>
-          <td><a href="/laughFace"><img src="../data/assets/faces/laughingface.png" width="50" alt="laughingface"></a></td>
-      </tr>
-      <tr>
-          <td><a href="/heartFace"><img src="../data/assets/faces/heartface.png" width="50" alt="heartface"></a></td>
-          <td><a href="/coolFace"><img src="../data/assets/faces/coolface.png" width="50" alt="coolface"></a></td>
-          <td><a href="/nerdFace"><img src="../data/assets/faces/nerdface.png" width="50" alt="nerdface"></a></td>
-      </tr>
+
   
-    </table>
-    
-  </section>
   
 </main>
-
-
-  <table>
-    <tr>
-      <th>IP Local</th>
-      <th>Host Name</th>
-      <th>Estado Wi-Fi</th>
-      <th>SSID</th>
-      <th>PSK</th>
-      <th>BSSID</th>
-      <th>RSSI Value</th>
-    </tr>
-    <tr>
-      <td>%IP_LOCAL%</td>
-      <td>%HOST_NAME%</td>
-      <td>%STATUS%</td>
-      <td>%SSID%</td>
-      <td>%PSK%</td>
-      <td>%BSSID%</td>
-      <td>%RSSI_VALUE%</td>
-    </tr>
-  </table>
 
   <footer>
     <div class="footer-left">
@@ -106,7 +138,7 @@
       <h3>REPOSITORIO</h3>
       <ul class="social-icons">
         <li><a href="https://github.com/Camperomask/open_house_iot.git" target="_blank"><img src="assets/3.png"
-              width="50" alt="GitHub"></a></li>
+              width="51" alt="GitHub"></a></li>
       </ul>
     </div>
   </footer>
@@ -120,3 +152,160 @@
 <script src="script.js"></script>
 
 </html>
+
+<script>
+  let items = document.querySelectorAll('.slider .item');
+    let next = document.getElementById('next');
+    let prev = document.getElementById('prev');
+    
+    let active = 3;
+    function loadShow(){
+        let stt = 0;
+        items[active].style.transform = `none`;
+        items[active].style.zIndex = 1;
+        items[active].style.filter = 'none';
+        items[active].style.opacity = 1;
+        for(var i = active + 1; i < items.length; i++){
+            stt++;
+            items[i].style.transform = `translateX(${120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(-1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+        stt = 0;
+        for(var i = active - 1; i >= 0; i--){
+            stt++;
+            items[i].style.transform = `translateX(${-120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+    }
+    loadShow();
+    next.onclick = function(){
+        active = active + 1 < items.length ? active + 1 : active;
+        loadShow();
+    }
+    prev.onclick = function(){
+        active = active - 1 >= 0 ? active - 1 : active;
+        loadShow();
+    }
+
+
+function obtenerFechaHora() {
+    const ahora = new Date();
+    const opciones = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
+    return ahora.toLocaleDateString('es-ES', opciones);
+}
+
+function actualizarFechaHora() {
+    const fechaHoraElemento = document.getElementById('fecha-hora');
+    if (fechaHoraElemento) {
+        fechaHoraElemento.textContent = obtenerFechaHora();
+    }
+}
+
+
+
+//funciones de botones de las caras
+
+function happy() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/happy", true);
+    xhttp.send();
+}
+
+function sad() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/sad", true);
+    xhttp.send();
+}
+
+function angry() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/angry", true);
+    xhttp.send();
+}
+
+function neutral() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/neutral", true);
+    xhttp.send();
+}
+
+function surprised() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/surprised", true);
+    xhttp.send();
+}
+
+function laughing() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/laughing", true);
+    xhttp.send();
+}
+
+function cool() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/cool", true);
+    xhttp.send();
+}
+
+function nerd() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/nerd", true);
+    xhttp.send();
+}
+
+function heart() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/heart", true);
+    xhttp.send();
+}
+
+//fin funciones de botones de las caras
+
+
+
+setInterval(actualizarFechaHora, 1000);
+
+setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("pulsador").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/pulsador", true);
+    xhttp.send();
+}, 1000);
+
+setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("RSSI").innerHTML = this.responseText;
+        }
+
+        if (document.getElementById("RSSI").innerHTML > -25) {
+            document.getElementById("wifi").src = "assets/red1.png";
+        } else if (document.getElementById("RSSI").innerHTML > -50) {
+            document.getElementById("wifi").src = "assets/red2.png";
+        } else if (document.getElementById("RSSI").innerHTML > -75) {
+            document.getElementById("wifi").src = "assets/red3.png";
+        } else {
+            document.getElementById("wifi").src = "assets/red4.png";
+        }
+    };
+    xhttp.open("GET", "/RSSI", true);
+    xhttp.send();
+}, 1000);
+
+$(document).ready(function() {
+    $('#imageCarousel').carousel();
+    $('#imageCarousel').on('slid.bs.carousel', function() {
+        var currentIndex = $('#imageCarousel .carousel-inner .carousel-item.active').index() + 1;
+        $('#positionIndicator').text('Imagen ' + currentIndex);
+    });
+});
+</script>

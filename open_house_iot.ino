@@ -1,10 +1,7 @@
-// Importamos las librerías
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-// Sustituye los datos de tu red WIFI ( el nombre y la contraseña )
 #include "config.h"
-#include "fix_matrices.h"
 #include "face_generator.h"
 
 #include <Adafruit_NeoPixel.h>
@@ -20,118 +17,52 @@ Adafruit_NeoPixel NeoPixel(NUM_PIXELS, PIN_NEO_PIXEL, NEO_GRB + NEO_KHZ800);
 AsyncWebServer server(80);
 
 // leemos la temperatura y la mostramos
-String getTemperature() {
+float getTemperature() {
     float adc = analogRead(A0);
     Serial.println(adc);
-    return String(adc);
+    return adc;
 }
-
-// leemos la presion y la mostramos
-String getPressure() {
-    float rssi = WiFi.RSSI();
-    Serial.println(rssi);
-    return String(rssi);
-}
-
-String processor(const String& var)
-{
-    
-    if (var == "ADC") {
-        return getTemperature();
-    }
-    // Agrega más condiciones para las nuevas variables aquí
-    else if (var == "IP_LOCAL") {
-        return WiFi.localIP().toString();
-    }
-    else if (var == "HOST_NAME") {
-        return WiFi.getHostname();
-    }
-    else if (var == "STATUS") {
-        return (WiFi.status() == WL_CONNECTED) ? "Conectado" : "Desconectado";
-    }
-    else if (var == "SSID") {
-        return WiFi.SSID();
-    }
-    else if (var == "PSK") {
-        return WiFi.psk();
-    }
-    else if (var == "BSSID") {
-        return WiFi.BSSIDstr();
-    }
-    else if (var == "RSSI_VALUE") {
-        return String(WiFi.RSSI());
-    }
-
-    return String(); // Si la variable no coincide, devolvemos una cadena vacía
-}
-
 
 void showSmileyFace(){
-  Serial.println("Cara feliz");
   NeoPixel.clear();
   NeoPixel.show();
-  
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(happy[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(happy[pixel/8][pixel%8], happy[pixel/8][pixel%8], 0)); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara feliz");  
 }
 
 void showSadFace(){
-  Serial.println("Cara Sad");
   NeoPixel.clear();
   NeoPixel.show();
-  
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(sad[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(0, 0, sad[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
-  }
-  //NeoPixel.show();
-  Serial.println("Fin Cara Sad");  
+  } 
 }
 
 void showNeutralFace(){
-  Serial.println("Cara Sad");
   NeoPixel.clear();
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(neutral[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(neutral[pixel/8][pixel%8],neutral[pixel/8][pixel%8],neutral[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara Sad");  
 }
 
 void showLaughFace(){
-  Serial.println("Cara Riendose");
   NeoPixel.clear();
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(laughR[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(laughR[pixel/8][pixel%8],laughGB[pixel/8][pixel%8],laughGB[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
-  }
-  //NeoPixel.show();
-  Serial.println("Fin Cara Riendose");  
+  } 
 }
 
 void showAngryFace(){
@@ -140,15 +71,10 @@ void showAngryFace(){
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(madR[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(madR[pixel/8][pixel%8],madG[pixel/8][pixel%8],0)); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara Enojada");  
 }
 
 void showSurprisedFace(){
@@ -157,15 +83,10 @@ void showSurprisedFace(){
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(surpriseR[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(surpriseR[pixel/8][pixel%8],surpriseR[pixel/8][pixel%8],surpriseR[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
-  }
-  //NeoPixel.show();
-  Serial.println("Fin Cara kool");  
+  } 
 }
 
 void showHeartFace(){
@@ -174,60 +95,38 @@ void showHeartFace(){
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(heartR[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(heartR[pixel/8][pixel%8],0,0)); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara corazon");  
 }
 
 void showCoolFace(){
-  Serial.println("Cara coool");
   NeoPixel.clear();
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(coolRGB[pixel/8][pixel%8]);  
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8],coolRGB[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara kool");  
 }
 
 void showNerdFace(){
-  Serial.println("Cara nerd");
   NeoPixel.clear();
   NeoPixel.show();
-
-  
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     NeoPixel.setPixelColor(pixel, NeoPixel.Color(nerdR[pixel/8][pixel%8],nerdG[pixel/8][pixel%8],nerdB[pixel/8][pixel%8])); // actualizando el estado de los leds
     NeoPixel.show(); 
     delay(10);
-  }
-  //NeoPixel.show();
-  Serial.println("Fin Cara nerd");  
+  } 
 }
 
 void showUcbFace(){
-  Serial.println("Cara UCB");
   NeoPixel.clear();
   NeoPixel.show();
   
   for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
-    Serial.print(ucbR[pixel/8][pixel%8]);   
-    Serial.print("  ");
-    if (pixel%8 == 7) Serial.println(".");
     if((pixel/8)%2==0) {
       NeoPixel.setPixelColor(pixel, NeoPixel.Color(ucbR[pixel/8][pixel%8],ucbG[pixel/8][pixel%8],ucbB[pixel/8][pixel%8])); // actualizando el estado de los leds
     } else {
@@ -236,9 +135,52 @@ void showUcbFace(){
     NeoPixel.show(); 
     delay(10);
   }
-  //NeoPixel.show();
-  Serial.println("Fin Cara UCB");  
 }
+
+int opcion = 0; //0 para seleccionar imagenes y 1 para potenciometro
+int selected = -1;
+
+/////////////********************** OPCIONES PARA VOZ **********************/////////////
+void shbocaCerrada(){
+  NeoPixel.clear();
+  NeoPixel.show();
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(bocaCerrada[pixel/8][pixel%8],bocaCerrada[pixel/8][pixel%8],bocaCerrada[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  } 
+}
+
+void shbocaLinea(){
+  NeoPixel.clear();
+  NeoPixel.show();
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(bocaLinea[pixel/8][pixel%8],bocaLinea[pixel/8][pixel%8],bocaLinea[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  } 
+}
+
+void shbocaAbierto1(){
+  NeoPixel.clear();
+  NeoPixel.show();
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(llbocaAbierto1[pixel/8][pixel%8],llbocaAbierto1[pixel/8][pixel%8],llbocaAbierto1[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  } 
+}
+void shbocaAbierto2(){
+  NeoPixel.clear();
+  NeoPixel.show();
+  for (int pixel = 0; pixel < NUM_PIXELS; pixel++) {           // para cada led
+    NeoPixel.setPixelColor(pixel, NeoPixel.Color(llbocaAbierto2[pixel/8][pixel%8],llbocaAbierto2[pixel/8][pixel%8],llbocaAbierto2[pixel/8][pixel%8])); // actualizando el estado de los leds
+    NeoPixel.show(); 
+    delay(10);
+  } 
+}
+
+/////////////******************** FIN OPCIONES PARA VOZ **********************/////////////
 
 
 void setup()
@@ -264,20 +206,16 @@ void setup()
   Serial.print("Direccion IP:\t");
   // Imprimimos la ip que le ha dado nuestro router
   Serial.println(WiFi.localIP());
-  
+
+
   // Ruta para cargar el archivo index.html
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
             
   // Ruta para cargar el archivo style.css
   server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
             request->send(SPIFFS, "/style.css", "text/css");
-            });
-            
-
-  server.on("/RSSI", HTTP_GET, [](AsyncWebServerRequest *request){
-            request->send_P(200, "text/plain", getPressure().c_str());
             });
 
 // Ruta para cargar una imagen desde SPIFFS
@@ -383,64 +321,89 @@ server.on("/assets/faces/surprisedface.png", HTTP_GET, [](AsyncWebServerRequest 
 
 server.on("/smileyFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showSmileyFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/sadFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showSadFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 
 server.on("/neutralFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showNeutralFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/surprisedFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showSurprisedFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/heartFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showHeartFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/laughFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showLaughFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/angryFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showAngryFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 
 server.on("/nerdFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showNerdFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
+
+            
 
 server.on("/coolFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
             showCoolFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 server.on("/ucbFace", HTTP_GET, [](AsyncWebServerRequest *request){
             //obtener imagen seleccionada
+            opcion = 0;
             showUcbFace();
-            request->send(SPIFFS, "/index.html", String(), false, processor);
+            request->send(SPIFFS, "/index.html", String(), false);
+            });
+
+
+
+            server.on("/images", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            opcion=0;
+            request->send(SPIFFS, "/index.html", String(), false);
+            });
+
+            server.on("/voice", HTTP_GET, [](AsyncWebServerRequest *request){
+            //obtener imagen seleccionada
+            opcion=1;
+            request->send(SPIFFS, "/index.html", String(), false);
             });
 
 
@@ -449,5 +412,32 @@ server.on("/ucbFace", HTTP_GET, [](AsyncWebServerRequest *request){
 }
 
 void loop(){
+  
+  if(opcion==1){
+    Serial.println(getTemperature());
+    
+     if(getTemperature()>0 && getTemperature()<=1000 && selected!=1){
+      selected=1;
+      shbocaCerrada();
+    }
+    
+    if(getTemperature()>1000 && getTemperature()<=2100 && selected!=2){
+      selected=2;
+      shbocaLinea();
+    }
+
+    if(getTemperature()>2100 && getTemperature()<=3000 && selected!=3){
+      selected=3;
+      shbocaAbierto1();
+    }
+
+    if(getTemperature()>3000 && getTemperature()<=4100 && selected!=4){
+      selected=4;
+      shbocaAbierto2();
+    }
+
+
+    
+  }
 
 }
